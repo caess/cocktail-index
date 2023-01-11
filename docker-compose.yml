@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: cocktail_index_dev
+      MYSQL_USER: cocktail_index_user
+      MYSQL_PASSWORD: password
+    volumes:
+      - 'cocktail-index-mysql:/var/lib/mysql'
+    networks:
+      - cocktail-index-net
+    healthcheck:
+      test: [ 'CMD', 'mysqladmin', 'ping', '-ppassword' ]
+      retries: 3
+      timeout: 5s
+networks:
+  cocktail-index-net:
+    driver: bridge
+volumes:
+  cocktail-index-mysql:
+    driver: local
