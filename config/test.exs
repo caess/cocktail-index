@@ -18,7 +18,7 @@ config :cocktail_index, CocktailIndex.Repo,
 config :cocktail_index, CocktailIndexWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "pMnKc6BISWgo/o1c6YF5rMe67niKquEjIL/vkluHsBHXv7V1SbhWpYPGS/2g5KA5",
-  server: false
+  server: true
 
 # In test we don't send emails.
 config :cocktail_index, CocktailIndex.Mailer, adapter: Swoosh.Adapters.Test
@@ -28,3 +28,7 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Set up wallaby
+config :wallaby, driver: Wallaby.Chrome
+config :wallaby, otp_app: :cocktail_index
