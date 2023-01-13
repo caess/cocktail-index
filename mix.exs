@@ -50,7 +50,8 @@ defmodule CocktailIndex.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:wallaby, "~> 0.30.0", runtime: false, only: :test},
-      {:ex_machina, "~> 2.7", only: :test}
+      {:ex_machina, "~> 2.7", only: :test},
+      {:mix_test_interactive, "~> 1.0", runtime: false, only: :dev}
     ]
   end
 
