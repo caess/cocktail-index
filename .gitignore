@@ -32,3 +32,5 @@ cocktail_index-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Explicitly ignore ElixirLS directory.
+/.elixir_ls
