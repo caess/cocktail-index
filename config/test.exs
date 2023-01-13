@@ -23,6 +23,9 @@ config :cocktail_index, CocktailIndexWeb.Endpoint,
 # In test we don't send emails.
 config :cocktail_index, CocktailIndex.Mailer, adapter: Swoosh.Adapters.Test
 
+# In test, use Ecto sandbox.
+config :cocktail_index, :sandbox, Ecto.Adapters.SQL.Sandbox
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
