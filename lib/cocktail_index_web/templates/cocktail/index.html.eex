@@ -1,13 +1,11 @@
-<html>
-  <head>
-    <title>Cocktails</title>
-  </head>
-  <body>
-    <h1>Cocktails</h1>
-    <ul>
-      <%= for cocktail <- @cocktails do %>
-        <li data-role="cocktail"><%= cocktail.name %></li>
-      <% end  %>
-    </ul>
-  </body>
-</html>
+<div>
+  <h1>Cocktails</h1>
+  <ul>
+    <%= for cocktail <- @cocktails do %>
+      <li data-role="cocktail"><%= cocktail.name %></li>
+    <% end  %>
+  </ul>
+  <div>
+    <%= link "New cocktail", to: Routes.cocktail_path(@conn, :new) %>
+  </div>
+</div>

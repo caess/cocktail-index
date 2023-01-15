@@ -24,6 +24,7 @@ defmodule CocktailIndex.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import CocktailIndex.DataCase
+      import CocktailIndex.Factory
     end
   end
 

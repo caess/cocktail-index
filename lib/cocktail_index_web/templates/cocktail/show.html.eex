@@ -1,0 +1,1 @@
+<h1 data-role="cocktail-name"><%= @cocktail.name %></h1>

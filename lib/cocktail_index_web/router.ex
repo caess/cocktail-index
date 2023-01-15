@@ -18,7 +18,7 @@ defmodule CocktailIndexWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
-    get("/cocktails/", CocktailController, :index)
+    resources("/chat_rooms", CocktailController, only: [:index, :new, :create, :show])
   end
 
   # Other scopes may use custom stacks.

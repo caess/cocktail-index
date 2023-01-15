@@ -1,0 +1,11 @@
+<div>
+  <%= form_for @changeset, Routes.cocktail_path(@conn, :create), fn f -> %>
+    <label>
+      Name:
+      <%= error_tag f, :name %>
+      <%= text_input f, :name %>
+    </label>
+
+    <%= submit "Add cocktail" %>
+  <% end %>
+</div>

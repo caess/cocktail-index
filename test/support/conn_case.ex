@@ -22,6 +22,7 @@ defmodule CocktailIndexWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      import CocktailIndex.Factory
       import CocktailIndexWeb.ConnCase
 
       alias CocktailIndexWeb.Router.Helpers, as: Routes
