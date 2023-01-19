@@ -17,7 +17,25 @@ defmodule CocktailIndex.Cocktails do
     |> Repo.insert()
   end
 
-  def find_cocktail(id) do
+  def get_cocktail(id) do
+    Cocktails.Cocktail |> Repo.get(id)
+  end
+
+  def get_cocktail!(id) do
     Cocktails.Cocktail |> Repo.get!(id)
+  end
+
+  def edit_cocktail(%Cocktails.Cocktail{} = cocktail) do
+    Cocktails.Cocktail.changeset(cocktail, %{})
+  end
+
+  def update_cocktail(%Cocktails.Cocktail{} = cocktail, params) do
+    cocktail
+    |> Cocktails.Cocktail.changeset(params)
+    |> Repo.update()
+  end
+
+  def delete_cocktail(%Cocktails.Cocktail{} = cocktail) do
+    Repo.delete(cocktail)
   end
 end

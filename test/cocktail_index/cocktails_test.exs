@@ -41,13 +41,64 @@ defmodule CocktailIndex.CocktailsTest do
     end
   end
 
-  describe "find_cocktail/1" do
+  describe "get_cocktail/1" do
     test "retrieves a cocktail by id" do
       cocktail = insert(:cocktail)
 
-      found_cocktail = Cocktails.find_cocktail(cocktail.id)
+      found_cocktail = Cocktails.get_cocktail(cocktail.id)
 
       assert cocktail == found_cocktail
+    end
+  end
+
+  describe "get_cocktail!/1" do
+    test "retrieves a cocktail by id" do
+      cocktail = insert(:cocktail)
+
+      found_cocktail = Cocktails.get_cocktail!(cocktail.id)
+
+      assert cocktail == found_cocktail
+    end
+  end
+
+  describe "edit_cocktail/1" do
+    test "prepare a changeset to edit a cocktail" do
+      cocktail = insert(:cocktail)
+
+      assert %Ecto.Changeset{} = Cocktails.edit_cocktail(cocktail)
+    end
+  end
+
+  describe "update_cocktail/2" do
+    test "updates a cocktail with valid params" do
+      cocktail = insert(:cocktail)
+      params = string_params_for(:cocktail)
+
+      {:ok, cocktail} = Cocktails.update_cocktail(cocktail, params)
+
+      assert %Cocktails.Cocktail{} = cocktail
+      assert cocktail.name == params["name"]
+    end
+
+    test "returns an error tuple if params are invalid" do
+      insert(:cocktail, name: "elixir")
+      cocktail = insert(:cocktail)
+      params = string_params_for(:cocktail, name: "elixir")
+
+      {:error, changeset} = Cocktails.update_cocktail(cocktail, params)
+
+      refute changeset.valid?
+      assert "has already been taken" in errors_on(changeset).name
+    end
+  end
+
+  describe "delete_cocktail/1" do
+    test "deletes a cocktail" do
+      cocktail = insert(:cocktail)
+
+      {:ok, _} = Cocktails.delete_cocktail(cocktail)
+
+      refute Cocktails.get_cocktail(cocktail.id)
     end
   end
 end

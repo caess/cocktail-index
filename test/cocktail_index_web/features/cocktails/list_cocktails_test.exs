@@ -1,4 +1,4 @@
-defmodule CocktailIndexWeb.UserVisitsCocktailsPageTest do
+defmodule CocktailIndexWeb.Cocktails.ListCocktailsTest do
   use CocktailIndexWeb.FeatureCase, async: true
 
   feature "user visits cocktails page to see a list of cocktails", %{session: session} do
@@ -13,6 +13,6 @@ defmodule CocktailIndexWeb.UserVisitsCocktailsPageTest do
   defp cocktails_index(), do: Routes.cocktail_path(@endpoint, :index)
 
   defp cocktail_name(cocktail) do
-    Query.data("role", "cocktail", text: cocktail.name)
+    Query.data("role", "cocktail-name", text: cocktail.name)
   end
 end

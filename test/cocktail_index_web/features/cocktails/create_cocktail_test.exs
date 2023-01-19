@@ -1,7 +1,7 @@
-defmodule CocktailIndexWeb.UserCreatesNewCocktailTest do
+defmodule CocktailIndexWeb.Cocktails.CreateCocktailTest do
   use CocktailIndexWeb.FeatureCase, async: true
 
-  test "user creates a new cocktail successfully", %{session: session} do
+  feature "user creates a new cocktail successfully", %{session: session} do
     session
     |> visit(cocktails_index())
     |> click(new_cocktail_link())
