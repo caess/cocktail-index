@@ -2,7 +2,7 @@
   <h1>Cocktails</h1>
   <ul>
     <%= for cocktail <- @cocktails do %>
-      <li data-cocktail-id="<%= cocktail.id %>">
+      <li data-cocktail-id={cocktail.id}>
         <span data-role="cocktail-name"><%= link cocktail.name, to: Routes.cocktail_path(@conn, :show, cocktail) %></span>
         <%= link "Edit", to: Routes.cocktail_path(@conn, :edit, cocktail) %>
         <%= link "Delete", to: Routes.cocktail_path(@conn, :delete, cocktail), method: :delete, data: [confirm: "Are you sure?"] %>
