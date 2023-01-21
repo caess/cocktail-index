@@ -1,0 +1,18 @@
+<div>
+  <h1>Glasses</h1>
+  <ul>
+    <%= for glass <- @glasses do %>
+      <li data-glass-id={glass.id}>
+        <span data-role="glass-name"><%= glass.name %></span>
+        <%= link "Edit", to: Routes.glass_path(@conn, :edit, glass) %>
+        <%= link "Delete", to: Routes.glass_path(@conn, :delete, glass), method: :delete, data: [confirm: "Are you sure?"] %>
+      </li>
+    <% end %>
+  </ul>
+  <div>
+    <ul>
+      <li><%= link "New glass", to: Routes.glass_path(@conn, :new) %></li>
+      <li><%= link "Back to cocktails", to: Routes.cocktail_path(@conn, :index) %></li>
+    </ul>
+  </div>
+</div>

@@ -101,4 +101,93 @@ defmodule CocktailIndex.CocktailsTest do
       refute Cocktails.get_cocktail(cocktail.id)
     end
   end
+
+  describe "all_glasses/0" do
+    test "return all glasses available" do
+      [glass1, glass2] = insert_pair(:glass)
+
+      glasses = Cocktails.all_glasses()
+
+      assert glass1 in glasses
+      assert glass2 in glasses
+    end
+  end
+
+  describe "new_glass/0" do
+    test "prepare a changeset for a new glass" do
+      assert %Ecto.Changeset{} = Cocktails.new_glass()
+    end
+  end
+
+  describe "create_glass/1" do
+    test "creates a glass with valid params" do
+      params = string_params_for(:glass)
+
+      {:ok, glass} = Cocktails.create_glass(params)
+
+      assert %Cocktails.Glass{} = glass
+      assert glass.name == params["name"]
+    end
+  end
+
+  describe "get_glass/1" do
+    test "retrieves a glass by id" do
+      glass = insert(:glass)
+
+      found_glass = Cocktails.get_glass(glass.id)
+
+      assert glass == found_glass
+    end
+  end
+
+  describe "get_glass!/1" do
+    test "retrieves a glass by id" do
+      glass = insert(:glass)
+
+      found_glass = Cocktails.get_glass!(glass.id)
+
+      assert glass == found_glass
+    end
+  end
+
+  describe "edit_glass/1" do
+    test "prepare a changeset to edit a glass" do
+      glass = insert(:glass)
+
+      assert %Ecto.Changeset{} = Cocktails.edit_glass(glass)
+    end
+  end
+
+  describe "update_glass/2" do
+    test "updates a cocktail with valid params" do
+      glass = insert(:glass)
+      params = string_params_for(:glass)
+
+      {:ok, glass} = Cocktails.update_glass(glass, params)
+
+      assert %Cocktails.Glass{} = glass
+      assert glass.name == params["name"]
+    end
+
+    test "returns an error tuple if params are invalid" do
+      insert(:glass, name: "elixir")
+      glass = insert(:glass)
+      params = string_params_for(:glass, name: "elixir")
+
+      {:error, changeset} = Cocktails.update_glass(glass, params)
+
+      refute changeset.valid?
+      assert "has already been taken" in errors_on(changeset).name
+    end
+  end
+
+  describe "delete_glass/1" do
+    test "deletes a glass" do
+      glass = insert(:glass)
+
+      {:ok, _} = Cocktails.delete_glass(glass)
+
+      refute Cocktails.get_glass(glass.id)
+    end
+  end
 end

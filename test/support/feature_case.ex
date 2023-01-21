@@ -12,6 +12,8 @@ defmodule CocktailIndexWeb.FeatureCase do
       @endpoint CocktailIndexWeb.Endpoint
 
       defp index_page(), do: Routes.page_path(@endpoint, :index)
+
+      defp manage_glasses_link(), do: Wallaby.Query.link("Manage glasses")
     end
   end
 end

@@ -1,0 +1,11 @@
+<div>
+  <%= form_for @changeset, Routes.glass_path(@conn, :update, @glass), fn f -> %>
+    <label>
+      Name:
+      <%= error_tag f, :name %>
+      <%= text_input f, :name %>
+    </label>
+
+    <%= submit "Update glass" %>
+  <% end %>
+</div>
