@@ -5,13 +5,11 @@ defmodule CocktailIndexWeb.Cocktails.UpdateCocktailTest do
     cocktail = insert(:cocktail)
 
     session
-    |> visit(cocktails_index())
+    |> visit(index_page())
     |> click_cocktail_edit_link(cocktail)
     |> update_cocktail(name: "renamed cocktail")
     |> assert_has(cocktail_name("renamed cocktail"))
   end
-
-  defp cocktails_index(), do: Routes.cocktail_path(@endpoint, :index)
 
   defp click_cocktail_edit_link(session, cocktail) do
     session

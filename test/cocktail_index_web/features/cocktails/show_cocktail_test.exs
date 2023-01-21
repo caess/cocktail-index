@@ -5,12 +5,10 @@ defmodule CocktailIndexWeb.Cocktails.ShowCocktailTest do
     cocktail = insert(:cocktail)
 
     session
-    |> visit(cocktails_index())
+    |> visit(index_page())
     |> click_cocktail_show_link(cocktail)
     |> assert_has(cocktail_name(cocktail.name))
   end
-
-  defp cocktails_index(), do: Routes.cocktail_path(@endpoint, :index)
 
   defp click_cocktail_show_link(session, cocktail) do
     session

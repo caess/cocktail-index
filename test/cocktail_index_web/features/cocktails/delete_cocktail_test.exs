@@ -5,13 +5,11 @@ defmodule CocktailIndexWeb.Cocktails.DeleteCocktailTest do
     [cocktail1, cocktail2] = insert_pair(:cocktail)
 
     session
-    |> visit(cocktails_index())
+    |> visit(index_page())
     |> delete_cocktail(cocktail1)
     |> refute_has(cocktail_name(cocktail1.name))
     |> assert_has(cocktail_name(cocktail2.name))
   end
-
-  defp cocktails_index(), do: Routes.cocktail_path(@endpoint, :index)
 
   defp delete_cocktail(session, cocktail) do
     accept_confirm(session, fn s ->

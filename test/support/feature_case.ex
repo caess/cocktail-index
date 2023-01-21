@@ -10,6 +10,8 @@ defmodule CocktailIndexWeb.FeatureCase do
       alias CocktailIndexWeb.Router.Helpers, as: Routes
 
       @endpoint CocktailIndexWeb.Endpoint
+
+      defp index_page(), do: Routes.page_path(@endpoint, :index)
     end
   end
 end
