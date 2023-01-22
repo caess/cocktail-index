@@ -45,8 +45,22 @@ defmodule CocktailIndexWeb.GlassController do
 
   def delete(conn, %{"id" => id}) do
     glass = Cocktails.get_glass!(id)
-    {:ok, _glass} = Cocktails.delete_glass(glass)
 
-    redirect(conn, to: Routes.glass_path(conn, :index))
+    case Cocktails.delete_glass(glass) do
+      {:ok, _glass} ->
+        redirect(conn, to: Routes.glass_path(conn, :index))
+
+      {:error, changeset} ->
+        error_message =
+          if Keyword.has_key?(changeset.errors, :cocktails) do
+            error = elem(changeset.errors[:cocktails], 0)
+
+            "Cocktails #{error}."
+          end
+
+        conn
+        |> put_flash(:error, error_message)
+        |> redirect(to: Routes.glass_path(conn, :index))
+    end
   end
 end

@@ -11,7 +11,9 @@ defmodule CocktailIndexWeb.CocktailController do
 
   def new(conn, _params) do
     changeset = Cocktails.new_cocktail()
-    render(conn, "new.html", changeset: changeset)
+    glasses = Cocktails.glass_form_options()
+
+    render(conn, "new.html", changeset: changeset, glasses: glasses)
   end
 
   def create(conn, %{"cocktail" => cocktail_params}) do
@@ -20,7 +22,8 @@ defmodule CocktailIndexWeb.CocktailController do
         redirect(conn, to: Routes.cocktail_path(conn, :show, cocktail))
 
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        glasses = Cocktails.glass_form_options()
+        render(conn, "new.html", changeset: changeset, glasses: glasses)
     end
   end
 
@@ -33,8 +36,9 @@ defmodule CocktailIndexWeb.CocktailController do
   def edit(conn, %{"id" => id}) do
     cocktail = Cocktails.get_cocktail!(id)
     changeset = Cocktails.edit_cocktail(cocktail)
+    glasses = Cocktails.glass_form_options()
 
-    render(conn, "edit.html", changeset: changeset, cocktail: cocktail)
+    render(conn, "edit.html", changeset: changeset, cocktail: cocktail, glasses: glasses)
   end
 
   def update(conn, %{"cocktail" => cocktail_params, "id" => id}) do
@@ -45,7 +49,8 @@ defmodule CocktailIndexWeb.CocktailController do
         redirect(conn, to: Routes.cocktail_path(conn, :show, cocktail))
 
       {:error, changeset} ->
-        render(conn, "edit.html", changeset: changeset, cocktail: cocktail)
+        glasses = Cocktails.glass_form_options()
+        render(conn, "edit.html", changeset: changeset, cocktail: cocktail, glasses: glasses)
     end
   end
 

@@ -22,4 +22,18 @@ defmodule CocktailIndex.Cocktails.GlassTest do
       assert "has already been taken" in errors_on(changeset).name
     end
   end
+
+  describe "delete_changeset/1" do
+    test "validates that record is not in use" do
+      glass = insert(:glass)
+      insert(:cocktail, glass: glass)
+
+      {:error, changeset} =
+        glass
+        |> Glass.delete_changeset()
+        |> Repo.delete()
+
+      assert "are still associated with this glass" in errors_on(changeset).cocktails
+    end
+  end
 end

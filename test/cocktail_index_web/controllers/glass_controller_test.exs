@@ -29,4 +29,18 @@ defmodule CocktailIndexWeb.GlassControllerTest do
       assert response =~ "has already been taken"
     end
   end
+
+  describe "delete/2" do
+    test "show error when glass cannot be deleted", %{conn: conn} do
+      glass = insert(:glass)
+      _cocktail = insert(:cocktail, glass: glass)
+
+      conn =
+        conn
+        |> delete(Routes.glass_path(conn, :delete, glass))
+        |> fetch_flash()
+
+      assert get_flash(conn, :error) == "Cocktails are still associated with this glass."
+    end
+  end
 end

@@ -190,4 +190,14 @@ defmodule CocktailIndex.CocktailsTest do
       refute Cocktails.get_glass(glass.id)
     end
   end
+
+  describe "glass_form_options/0" do
+    test "return options for all glasses available" do
+      [glass1, glass2] = insert_pair(:glass)
+
+      glasses = Cocktails.glass_form_options()
+
+      assert glasses == [{glass1.name, glass1.id}, {glass2.name, glass2.id}]
+    end
+  end
 end

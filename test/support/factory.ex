@@ -3,7 +3,8 @@ defmodule CocktailIndex.Factory do
 
   def cocktail_factory do
     %CocktailIndex.Cocktails.Cocktail{
-      name: sequence(:name, &"cocktail #{&1}")
+      name: sequence(:name, &"cocktail #{&1}"),
+      glass: insert(:glass)
     }
   end
 

@@ -6,6 +6,13 @@
       <%= text_input f, :name %>
     </label>
 
+    <label>
+      Glass:
+      <%= error_tag f, :glass, as: :glass_id %>
+      <%= error_tag f, :glass_id %>
+      <%= select f, :glass_id, @glasses %>
+    </label>
+
     <%= submit "Update cocktail" %>
   <% end %>
 </div>

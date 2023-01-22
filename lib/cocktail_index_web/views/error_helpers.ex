@@ -8,11 +8,18 @@ defmodule CocktailIndexWeb.ErrorHelpers do
   @doc """
   Generates tag for inlined form input errors.
   """
-  def error_tag(form, field) do
+  def error_tag(form, field, opts \\ []) do
+    acting_field =
+      if Keyword.has_key?(opts, :as) do
+        opts[:as]
+      else
+        field
+      end
+
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
       content_tag(:span, translate_error(error),
         class: "invalid-feedback",
-        phx_feedback_for: input_name(form, field)
+        phx_feedback_for: input_name(form, acting_field)
       )
     end)
   end

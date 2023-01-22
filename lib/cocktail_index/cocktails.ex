@@ -3,7 +3,7 @@ defmodule CocktailIndex.Cocktails do
   alias CocktailIndex.Repo
 
   def all_cocktails do
-    Cocktails.Cocktail |> Repo.all()
+    Cocktails.Cocktail |> Repo.all() |> Repo.preload(:glass)
   end
 
   def new_cocktail do
@@ -18,11 +18,11 @@ defmodule CocktailIndex.Cocktails do
   end
 
   def get_cocktail(id) do
-    Cocktails.Cocktail |> Repo.get(id)
+    Cocktails.Cocktail |> Repo.get(id) |> Repo.preload(:glass)
   end
 
   def get_cocktail!(id) do
-    Cocktails.Cocktail |> Repo.get!(id)
+    Cocktails.Cocktail |> Repo.get!(id) |> Repo.preload(:glass)
   end
 
   def edit_cocktail(%Cocktails.Cocktail{} = cocktail) do
@@ -73,6 +73,12 @@ defmodule CocktailIndex.Cocktails do
   end
 
   def delete_glass(%Cocktails.Glass{} = glass) do
-    Repo.delete(glass)
+    glass
+    |> Cocktails.Glass.delete_changeset()
+    |> Repo.delete()
+  end
+
+  def glass_form_options do
+    Enum.map(all_glasses(), fn x -> {x.name, x.id} end)
   end
 end
