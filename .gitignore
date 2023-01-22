@@ -34,3 +34,6 @@ npm-debug.log
 
 # Explicitly ignore ElixirLS directory.
 /.elixir_ls
+
+# Ignore recreated screenshots.
+/screenshots/
