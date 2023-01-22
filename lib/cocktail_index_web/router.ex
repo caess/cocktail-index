@@ -21,6 +21,8 @@ defmodule CocktailIndexWeb.Router do
 
     resources("/cocktails", CocktailController)
     resources("/glasses", GlassController, only: [:index, :new, :create, :edit, :update, :delete])
+
+    resources("/sources", SourceController, only: [:index, :new, :create, :edit, :update, :delete])
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,18 @@
+<div>
+  <h1>Sources</h1>
+  <ul>
+    <%= for source <- @sources do %>
+      <li data-source-id={source.id}>
+        <span data-role="source-name"><%= source.name %></span>
+        <%= link "Edit", to: Routes.source_path(@conn, :edit, source) %>
+        <%= link "Delete", to: Routes.source_path(@conn, :delete, source), method: :delete, data: [confirm: "Are you sure?"] %>
+      </li>
+    <% end %>
+  </ul>
+  <div>
+    <ul>
+      <li><%= link "New source", to: Routes.source_path(@conn, :new) %></li>
+      <li><%= link "Back to cocktails", to: Routes.cocktail_path(@conn, :index) %></li>
+    </ul>
+  </div>
+</div>

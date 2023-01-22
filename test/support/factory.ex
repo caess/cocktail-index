@@ -13,4 +13,10 @@ defmodule CocktailIndex.Factory do
       name: sequence(:name, &"glass #{&1}")
     }
   end
+
+  def source_factory do
+    %CocktailIndex.Cocktails.Source{
+      name: sequence(:name, &"source #{&1}")
+    }
+  end
 end

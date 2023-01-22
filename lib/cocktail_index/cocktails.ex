@@ -81,4 +81,41 @@ defmodule CocktailIndex.Cocktails do
   def glass_form_options do
     Enum.map(all_glasses(), fn x -> {x.name, x.id} end)
   end
+
+  def all_sources do
+    Cocktails.Source |> Repo.all()
+  end
+
+  def new_source do
+    %Cocktails.Source{}
+    |> Cocktails.Source.changeset(%{})
+  end
+
+  def create_source(params) do
+    %Cocktails.Source{}
+    |> Cocktails.Source.changeset(params)
+    |> Repo.insert()
+  end
+
+  def get_source(id) do
+    Cocktails.Source |> Repo.get(id)
+  end
+
+  def get_source!(id) do
+    Cocktails.Source |> Repo.get!(id)
+  end
+
+  def edit_source(%Cocktails.Source{} = source) do
+    Cocktails.Source.changeset(source, %{})
+  end
+
+  def update_source(%Cocktails.Source{} = source, params) do
+    source
+    |> Cocktails.Source.changeset(params)
+    |> Repo.update()
+  end
+
+  def delete_source(%Cocktails.Source{} = source) do
+    Repo.delete(source)
+  end
 end

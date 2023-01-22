@@ -159,7 +159,7 @@ defmodule CocktailIndex.CocktailsTest do
   end
 
   describe "update_glass/2" do
-    test "updates a cocktail with valid params" do
+    test "updates a glass with valid params" do
       glass = insert(:glass)
       params = string_params_for(:glass)
 
@@ -198,6 +198,95 @@ defmodule CocktailIndex.CocktailsTest do
       glasses = Cocktails.glass_form_options()
 
       assert glasses == [{glass1.name, glass1.id}, {glass2.name, glass2.id}]
+    end
+  end
+
+  describe "all_sources/0" do
+    test "return all sources available" do
+      [source1, source2] = insert_pair(:source)
+
+      sources = Cocktails.all_sources()
+
+      assert source1 in sources
+      assert source2 in sources
+    end
+  end
+
+  describe "new_source/0" do
+    test "prepare a changeset for a new source" do
+      assert %Ecto.Changeset{} = Cocktails.new_source()
+    end
+  end
+
+  describe "create_source/1" do
+    test "creates a source with valid params" do
+      params = string_params_for(:source)
+
+      {:ok, source} = Cocktails.create_source(params)
+
+      assert %Cocktails.Source{} = source
+      assert source.name == params["name"]
+    end
+  end
+
+  describe "get_source/1" do
+    test "retrieves a source by id" do
+      source = insert(:source)
+
+      found_source = Cocktails.get_source(source.id)
+
+      assert source == found_source
+    end
+  end
+
+  describe "get_source!/1" do
+    test "retrieves a source by id" do
+      source = insert(:source)
+
+      found_source = Cocktails.get_source!(source.id)
+
+      assert source == found_source
+    end
+  end
+
+  describe "edit_source/1" do
+    test "prepare a changeset to edit a source" do
+      source = insert(:source)
+
+      assert %Ecto.Changeset{} = Cocktails.edit_source(source)
+    end
+  end
+
+  describe "update_source/2" do
+    test "updates a source with valid params" do
+      source = insert(:source)
+      params = string_params_for(:source)
+
+      {:ok, source} = Cocktails.update_source(source, params)
+
+      assert %Cocktails.Source{} = source
+      assert source.name == params["name"]
+    end
+
+    test "returns an error tuple if params are invalid" do
+      insert(:source, name: "elixir")
+      source = insert(:source)
+      params = string_params_for(:source, name: "elixir")
+
+      {:error, changeset} = Cocktails.update_source(source, params)
+
+      refute changeset.valid?
+      assert "has already been taken" in errors_on(changeset).name
+    end
+  end
+
+  describe "delete_source/1" do
+    test "deletes a source" do
+      source = insert(:source)
+
+      {:ok, _} = Cocktails.delete_source(source)
+
+      refute Cocktails.get_source(source.id)
     end
   end
 end
