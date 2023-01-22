@@ -1,4 +1,4 @@
-defmodule CocktailIndexWeb.Glasses.CreateFlassTest do
+defmodule CocktailIndexWeb.Glasses.CreateGlassTest do
   use CocktailIndexWeb.FeatureCase, async: true
 
   feature "user creates a new glass successfully", %{session: session} do
