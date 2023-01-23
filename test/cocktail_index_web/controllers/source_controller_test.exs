@@ -29,4 +29,18 @@ defmodule CocktailIndexWeb.SourceControllerTest do
       assert response =~ "has already been taken"
     end
   end
+
+  describe "delete/2" do
+    test "show error when source cannot be deleted", %{conn: conn} do
+      source = insert(:source)
+      _cocktail = insert(:cocktail, source: source)
+
+      conn =
+        conn
+        |> delete(Routes.source_path(conn, :delete, source))
+        |> fetch_flash()
+
+      assert get_flash(conn, :error) == "Cocktails are still associated with this source."
+    end
+  end
 end

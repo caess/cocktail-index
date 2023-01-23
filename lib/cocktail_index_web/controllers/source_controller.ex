@@ -44,9 +44,23 @@ defmodule CocktailIndexWeb.SourceController do
   end
 
   def delete(conn, %{"id" => id}) do
-    cocktail = Cocktails.get_source!(id)
-    {:ok, _source} = Cocktails.delete_source(cocktail)
+    source = Cocktails.get_source!(id)
 
-    redirect(conn, to: Routes.source_path(conn, :index))
+    case Cocktails.delete_source(source) do
+      {:ok, _source} ->
+        redirect(conn, to: Routes.source_path(conn, :index))
+
+      {:error, changeset} ->
+        error_message =
+          if Keyword.has_key?(changeset.errors, :cocktails) do
+            error = elem(changeset.errors[:cocktails], 0)
+
+            "Cocktails #{error}."
+          end
+
+        conn
+        |> put_flash(:error, error_message)
+        |> redirect(to: Routes.source_path(conn, :index))
+    end
   end
 end

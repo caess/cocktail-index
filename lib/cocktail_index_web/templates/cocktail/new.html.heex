@@ -13,6 +13,19 @@
       <%= select f, :glass_id, @glasses %>
     </label>
 
+    <label>
+      Source:
+      <%= error_tag f, :source, as: :source_id %>
+      <%= error_tag f, :source_id %>
+      <%= select f, :source_id, @sources %>
+    </label>
+
+    <label>
+      Source Page/Episode:
+      <%= error_tag f, :source_detail %>
+      <%= text_input f, :source_detail %>
+    </label>
+
     <%= submit "Add cocktail" %>
   <% end %>
 </div>

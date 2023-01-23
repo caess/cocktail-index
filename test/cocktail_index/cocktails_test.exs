@@ -289,4 +289,14 @@ defmodule CocktailIndex.CocktailsTest do
       refute Cocktails.get_source(source.id)
     end
   end
+
+  describe "source_form_options/0" do
+    test "return options for all sources available" do
+      [source1, source2] = insert_pair(:source)
+
+      sources = Cocktails.source_form_options()
+
+      assert sources == [{source1.name, source1.id}, {source2.name, source2.id}]
+    end
+  end
 end
